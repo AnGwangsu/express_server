@@ -2,10 +2,26 @@ const express = require('express')
 const dotenv = require('dotenv');
 const app = express()
 const cors = require('cors');
+const sequelize = require('./models').sequelize
 
 //post요청 설정
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
+
+
+//DB연결
+//DB + sequelize
+const driver = async()=>{
+    try{
+        await sequelize.sync({force:false})
+    }catch(err){
+        console.error('초기화 실패')
+        console.error(err)
+        return
+    }
+    console.log('초기화 완료')
+}
+driver()
 
 //cors설정
 var allowList = ['http://localhost:8080']
