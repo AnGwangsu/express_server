@@ -20,6 +20,9 @@ module.exports = {
       socialType: {
         type: Sequelize.INTEGER
       },
+      socialId: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
