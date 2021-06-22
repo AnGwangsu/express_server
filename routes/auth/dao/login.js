@@ -1,3 +1,4 @@
+//DB
 var { User } = require('../../../models');
 //jwt
 const jwt = require('jsonwebtoken')
@@ -7,7 +8,7 @@ const secret = require('../../../config/jwt').KEY.secret;
 exports.socialLogin = async(req,res)=>{
     try {
         var data = req.user
-        var socialType = 0
+        var socialType = data.provider
         var socialId = ''
         var username = ''
         var nickname = ''
@@ -16,10 +17,13 @@ exports.socialLogin = async(req,res)=>{
             socialType=10
         }else if(socialType=='kakao'){
             socialId = data.id
-            username = socialType +'_'+data.id
+            username = socialType +'_'+socialId
             nickname = data._json.properties.nickname
             socialType=20
         }else if(socialType=='naver'){
+            socialId = data.id
+            username = socialType +'_'+socialId
+            nickname = data._json.nickname
             socialType=30
         }
         
