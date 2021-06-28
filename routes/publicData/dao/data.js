@@ -40,7 +40,36 @@ exports.locationList = async (req, res) => {
     res.status(400).json({ resultCode: -1, data: null });
   }
 };
-
+exports.stayList = async (req, res) => {
+  try {
+    var ServiceKey = process.env.PUBLIC_DATA_SERVICEKEY;
+    var numOfRows = req.body.limit;
+    var areaCode = req.body.areaCode;
+    var sigunguCode = req.body.sigunguCode
+    var arrange = 'B';
+    var MobileApp = "tour";
+    var MobileOS = "ETC";
+    var items = [];
+    var response = await axios.get('http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchStay',{
+      params:{
+        ServiceKey,
+        numOfRows,
+        areaCode,
+        sigunguCode,
+        arrange,
+        MobileApp,
+        MobileOS,
+      }
+    })
+    items = response.data.response.body.items.item;
+    items = items.filter(o=>o.firstimage2 !=undefined)
+    console.log("숙박 리스트 완료");
+    res.status(200).json({ resultCode: 1, data: { items: items } });
+  } catch (error) {
+    console.log('숙박 리스트 실패')
+    res.status(400).json({resultCode:-1, data:null})
+  }
+};
 exports.enterLocation = async (req, res) => {
   try {
     var ServiceKey = process.env.PUBLIC_DATA_SERVICEKEY; //Deconding된 인증키를 사용해야한다
@@ -72,11 +101,11 @@ exports.enterLocation = async (req, res) => {
       }
     );
     items = response.data.response.body.items.item;
-    console.log('즐길거리 리스트 완료')
-    res.status(200).json({"resultCode":1, "data":{"items":items}})
+    console.log("즐길거리 리스트 완료");
+    res.status(200).json({ resultCode: 1, data: { items: items } });
   } catch (error) {
-    console.log('즐길거리 리스트 실패'+error)
-    res.status(400).json({"resultCode":-1, "data":null})
+    console.log("즐길거리 리스트 실패" + error);
+    res.status(400).json({ resultCode: -1, data: null });
   }
 };
 
@@ -99,6 +128,9 @@ exports.locationCode = async (req, res) => {
       }
     );
     items = response.data.response.body.items.item;
+    for(i in items){
+      items[i]=items[i].name
+    }
     console.log("공공데이터 지역코드 리스트 성공");
     res.status(200).json({ resultCode: 1, data: { items: items } });
   } catch (error) {

@@ -16,7 +16,7 @@ router.post('/locationEnter',data.enterLocation)
 //카테고리 기반
 
 //숙박업소
-
+router.post('/stayList',data.stayList)
 
 //지역기반 상세보기(http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailIntro
 //,http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailIntro)
