@@ -1,8 +1,12 @@
 const axios = require("axios");
 
+//고정값
+const ServiceKey = process.env.PUBLIC_DATA_SERVICEKEY;
+const MobileApp = "tour";
+const MobileOS = "ETC";
+
 exports.locationList = async (req, res) => {
   try {
-    var ServiceKey = process.env.PUBLIC_DATA_SERVICEKEY; //Deconding된 인증키를 사용해야한다
     var pageNo = req.body.page;
     var numOfRows = req.body.limit;
     var areaCode = req.body.areaCode;
@@ -11,8 +15,6 @@ exports.locationList = async (req, res) => {
     var cat2 = req.body.cat2;
     var cat3 = req.body.cat3;
     var arrange = req.body.arrange;
-    var MobileApp = "tour";
-    var MobileOS = "ETC";
     var items = [];
     var response = await axios.get(
       "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList",
@@ -42,37 +44,35 @@ exports.locationList = async (req, res) => {
 };
 exports.stayList = async (req, res) => {
   try {
-    var ServiceKey = process.env.PUBLIC_DATA_SERVICEKEY;
     var numOfRows = req.body.limit;
     var areaCode = req.body.areaCode;
-    var sigunguCode = req.body.sigunguCode
-    var arrange = 'B';
-    var MobileApp = "tour";
-    var MobileOS = "ETC";
+    var sigunguCode = req.body.sigunguCode;
+    var arrange = "P";
     var items = [];
-    var response = await axios.get('http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchStay',{
-      params:{
-        ServiceKey,
-        numOfRows,
-        areaCode,
-        sigunguCode,
-        arrange,
-        MobileApp,
-        MobileOS,
+    var response = await axios.get(
+      "http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchStay",
+      {
+        params: {
+          ServiceKey,
+          numOfRows,
+          areaCode,
+          sigunguCode,
+          arrange,
+          MobileApp,
+          MobileOS,
+        },
       }
-    })
+    );
     items = response.data.response.body.items.item;
-    items = items.filter(o=>o.firstimage2 !=undefined)
     console.log("숙박 리스트 완료");
     res.status(200).json({ resultCode: 1, data: { items: items } });
   } catch (error) {
-    console.log('숙박 리스트 실패')
-    res.status(400).json({resultCode:-1, data:null})
+    console.log("숙박 리스트 실패");
+    res.status(400).json({ resultCode: -1, data: null });
   }
 };
 exports.enterLocation = async (req, res) => {
   try {
-    var ServiceKey = process.env.PUBLIC_DATA_SERVICEKEY; //Deconding된 인증키를 사용해야한다
     var pageNo = req.body.page;
     var numOfRows = req.body.limit;
     var areaCode = req.body.areaCode;
@@ -80,8 +80,6 @@ exports.enterLocation = async (req, res) => {
     var cat1 = req.body.cat1;
     var cat2 = req.body.cat2;
     var arrange = req.body.arrange;
-    var MobileApp = "tour";
-    var MobileOS = "ETC";
     var items = [];
     var response = await axios.get(
       "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList",
@@ -111,9 +109,7 @@ exports.enterLocation = async (req, res) => {
 
 exports.locationCode = async (req, res) => {
   try {
-    var ServiceKey = process.env.PUBLIC_DATA_SERVICEKEY;
-    var MobileApp = "tour";
-    var MobileOS = "ETC";
+    var numOfRows = 35;
     var areaCode = req.body.areaCode;
     var items = [];
     var response = await axios.get(
@@ -124,13 +120,11 @@ exports.locationCode = async (req, res) => {
           MobileApp,
           MobileOS,
           areaCode,
+          numOfRows,
         },
       }
     );
     items = response.data.response.body.items.item;
-    for(i in items){
-      items[i]=items[i].name
-    }
     console.log("공공데이터 지역코드 리스트 성공");
     res.status(200).json({ resultCode: 1, data: { items: items } });
   } catch (error) {
@@ -138,12 +132,39 @@ exports.locationCode = async (req, res) => {
     res.status(400).json({ resultCode: -1, data: null });
   }
 };
+exports.categoryList = async (req, res) => {
+  try {
+    var areaCode = req.body.areaCode
+    var numOfRows = req.body.limit;
+    var contentTypeId = req.body.contentTypeId
+    var arrange = "P";
+    var cat1 = req.body.cat1
+    var cat2 = req.body.cat2
+    var items = []
+    var category = await axios.get('http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList',{
+      params:{
+        ServiceKey,
+        MobileApp,
+        MobileOS,
+        arrange,
+        areaCode,
+        contentTypeId,
+        cat1,
+        cat2,
+        numOfRows
+      }
+    })
+    items = category.data.response.body.items.item
+    console.log('카테고리별 리스트 성공')
+    res.status(200).json({"resultCode":1, "data":{"items":items}})
+  } catch (error) {
+    console.log('카테고리별 리스트 실패'+error)
+    res.status(400).json({"resultCode":-1, "data":null})
+  }
+};
 
 exports.read = async (req, res) => {
   try {
-    var ServiceKey = process.env.PUBLIC_DATA_SERVICEKEY;
-    var MobileApp = "tour";
-    var MobileOS = "ETC";
     var contentId = req.body.contentId;
     var contentTypeId = req.body.contentTypeId;
     var mapx = req.body.mapx;

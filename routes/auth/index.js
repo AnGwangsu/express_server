@@ -8,6 +8,9 @@ const join = require('./dao/join')
 const auth = require('./dao/auth')
 
 router.post('/auth/tokenCheck',token.tokenCheck)
+//구글 로그인
+router.get('/google',passport.google.authenticate('google', {scope: ['openid', 'email', 'profile']}))
+router.get('/google/callback',passport.google.authenticate('google'),login.socialLogin)
 //카카오 로그인
 router.get('/kakao',passport.kakao.authenticate('kakao')); //서버 테스트를 위함, front에서 동의페이지로 넘어가서 필요x
 router.get('/kakao/callback',passport.kakao.authenticate('kakao'),login.socialLogin)

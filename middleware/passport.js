@@ -2,7 +2,7 @@ const dotenv = require('dotenv')
 dotenv.config()
 
 var passport = require('passport')
-// var GoogleStrategy = require('passport-google-oauth2').Strategy
+var GoogleStrategy = require('passport-google-oauth2').Strategy
 var NaverStrategy = require('passport-naver').Strategy
 var KakaoStrategy = require('passport-kakao').Strategy
 
@@ -12,6 +12,17 @@ passport.serializeUser((user,done)=>{
 passport.deserializeUser((user,done)=>{
     done(null,user)
 })
+
+var google = passport.use(new GoogleStrategy(
+    {
+        clientID:process.env.GOOGLE_CLIENTID,
+        clientSecret:process.env.GOOGLE_SECERET,
+        callbackURL:process.env.GOOGLE_REDIRECT_URL
+    }, (accessToken,refreshToken,profile,done)=>{
+        done(null,profile)
+    }
+))
+
 
 var kakao = passport.use(new KakaoStrategy(
     {
@@ -32,4 +43,4 @@ var naver = passport.use(new NaverStrategy(
     }
 ))
 
-module.exports = {kakao,naver}
+module.exports = {google,kakao,naver}
