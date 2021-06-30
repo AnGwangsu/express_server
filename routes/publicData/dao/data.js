@@ -16,25 +16,47 @@ exports.locationList = async (req, res) => {
     var cat3 = req.body.cat3;
     var arrange = req.body.arrange;
     var items = [];
-    var response = await axios.get(
-      "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList",
-      {
-        params: {
-          ServiceKey,
-          pageNo,
-          numOfRows,
-          MobileApp,
-          MobileOS,
-          arrange,
-          areaCode,
-          contentTypeId,
-          cat1,
-          cat2,
-          cat3,
-        },
-      }
-    );
-    items = response.data.response.body.items.item;
+
+    if(cat3==null){
+      var response1 = await axios.get(
+        "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList",
+        {
+          params: {
+            ServiceKey,
+            pageNo,
+            numOfRows,
+            MobileApp,
+            MobileOS,
+            arrange,
+            areaCode,
+            contentTypeId,
+            cat1,
+            cat2,
+          },
+        }
+      );
+      items = response1.data.response.body.items.item;
+    }else{
+      var response2 = await axios.get(
+        "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList",
+        {
+          params: {
+            ServiceKey,
+            pageNo,
+            numOfRows,
+            MobileApp,
+            MobileOS,
+            arrange,
+            areaCode,
+            contentTypeId,
+            cat1,
+            cat2,
+            cat3
+          },
+        }
+      );
+      items = response2.data.response.body.items.item;
+    }
     console.log("공공데이터 지역기반 리스트 성공");
     res.status(200).json({ resultCode: 1, data: { items: items } });
   } catch (error) {
