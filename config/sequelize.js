@@ -25,6 +25,12 @@ module.exports = {
     host: process.env.RDS_HOST,
     dialect: "mysql",
     logging: false,
+    timezone: '+09:00',
+    pool: {
+      max: 20,
+      min: 5,
+      idle: 60000
+    }
   }
 }
 
