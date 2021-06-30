@@ -58,6 +58,10 @@ app.use('/',router)
 
 
 //서버포트 연결
-app.listen(3000,()=>{
-    console.log('3000port connected!')
-})
+var production = process.env.PRODUCTION_PORT;
+var dev = process.env.DEV_PORT;
+if (process.env.NODE_ENV === 'production') {
+    app.listen(production, () => { console.log(`${production}port connected...`) })
+} else {
+    app.listen(dev, () => { console.log(`${dev}port connected...`) })
+}
