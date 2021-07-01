@@ -23,6 +23,7 @@ module.exports = {
     password: process.env.RDS_PASSWORD,
     database: process.env.RDS_PRODUCTION_DATABASE,
     host: process.env.RDS_HOST,
+    port: process.env.RDS_PORT,
     dialect: "mysql",
     logging: false,
     timezone: '+09:00',
