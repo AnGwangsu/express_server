@@ -313,6 +313,14 @@
   "resolved" "https://registry.npmjs.org/content-type/-/content-type-1.0.4.tgz"
   "version" "1.0.4"
 
+"cookie-parser@1.4.5":
+  "integrity" "sha512-f13bPUj/gG/5mDr+xLmSxxDsB9DQiTIfhJS/sqjrmfAWiAN+x2O4i/XguTL9yDZ+/IFDanJ+5x7hC4CXT9Tdzw=="
+  "resolved" "https://registry.npmjs.org/cookie-parser/-/cookie-parser-1.4.5.tgz"
+  "version" "1.4.5"
+  dependencies:
+    "cookie" "0.4.0"
+    "cookie-signature" "1.0.6"
+
 "cookie-signature@1.0.6":
   "integrity" "sha1-4wOogrNCzD7oylE6eZmXNNqzriw="
   "resolved" "https://registry.npmjs.org/cookie-signature/-/cookie-signature-1.0.6.tgz"
@@ -327,6 +335,13 @@
   "integrity" "sha512-ZwrFkGJxUR3EIoXtO+yVE69Eb7KlixbaeAWfBQB9vVsNn/o+Yw69gBWSSDK825hQNdN+wF8zELf3dFNl/kxkUA=="
   "resolved" "https://registry.npmjs.org/cookie/-/cookie-0.4.1.tgz"
   "version" "0.4.1"
+
+"cookies-parser@1.2.0":
+  "integrity" "sha512-FswcQu8aRn74WGosDuFgneGM+X8WfYio+qMIyWaDkWXHhsvaNxvJK2bumDnFh4PMc4pE+ciRLkKD1HI3IcQCgw=="
+  "resolved" "https://registry.npmjs.org/cookies-parser/-/cookies-parser-1.2.0.tgz"
+  "version" "1.2.0"
+  dependencies:
+    "tough-cookie" "^2.3.2"
 
 "cors@2.8.5":
   "integrity" "sha512-KIHbLJqu73RGr/hnbrO9uBeixNGuvSQjul/jdFvS/KFSIH1hWVd1ng7zOHx+YrEfInLG7q4n6GHQ9cDtxv/P6g=="
@@ -1490,6 +1505,11 @@
   "resolved" "https://registry.npmjs.org/pseudomap/-/pseudomap-1.0.2.tgz"
   "version" "1.0.2"
 
+"psl@^1.1.28":
+  "integrity" "sha512-RIdOzyoavK+hA18OGGWDqUTsCLhtA7IcZ/6NCs4fFJaHBDab+pDDmDIByWFRQJq2Cd7r1OoQxBGKOaztq+hjIQ=="
+  "resolved" "https://registry.npmjs.org/psl/-/psl-1.8.0.tgz"
+  "version" "1.8.0"
+
 "pstree.remy@^1.1.7":
   "integrity" "sha512-77DZwxQmxKnu3aR542U+X8FypNzbfJ+C5XQDk3uWjWxn6151aIMGthWYRXTqT1E5oJvg+ljaa2OJi+VfvCOQ8w=="
   "resolved" "https://registry.npmjs.org/pstree.remy/-/pstree.remy-1.1.8.tgz"
@@ -1502,6 +1522,11 @@
   dependencies:
     "end-of-stream" "^1.1.0"
     "once" "^1.3.1"
+
+"punycode@^2.1.1":
+  "integrity" "sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A=="
+  "resolved" "https://registry.npmjs.org/punycode/-/punycode-2.1.1.tgz"
+  "version" "2.1.1"
 
 "pupa@^2.0.1":
   "integrity" "sha512-l1jNAspIBSFqbT+y+5FosojNpVpF94nlI+wDUpqP9enwOTfHx9f0gh5nB96vl+6yTpsJsypeNrwfzPrKuHB41A=="
@@ -1866,6 +1891,14 @@
   "version" "3.1.0"
   dependencies:
     "nopt" "~1.0.10"
+
+"tough-cookie@^2.3.2":
+  "integrity" "sha512-nlLsUzgm1kfLXSXfRZMc1KLAugd4hqJHDTvc2hDIwS3mZAfMEuMbc03SujMF+GEcpaX/qboeycw6iO8JwVv2+g=="
+  "resolved" "https://registry.npmjs.org/tough-cookie/-/tough-cookie-2.5.0.tgz"
+  "version" "2.5.0"
+  dependencies:
+    "psl" "^1.1.28"
+    "punycode" "^2.1.1"
 
 "type-fest@^0.8.1":
   "integrity" "sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA=="

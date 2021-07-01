@@ -1,5 +1,6 @@
 const express = require('express')
 const dotenv = require('dotenv');
+const cookieParser = require('cookie-parser');
 const app = express()
 const cors = require('cors');
 const sequelize = require('./models').sequelize
@@ -10,6 +11,8 @@ const passport = require('passport')
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 
+//cookie-parser
+app.use(cookieParser(process.env.COOKIE_SECRET));
 
 //DB + sequelize
 const driver = async()=>{
