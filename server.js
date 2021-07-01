@@ -29,9 +29,15 @@ driver()
 
 //session설정
 app.use(session({
+    //비밀키 설정
     secret:process.env.COOKIE_SECRET,
-    cookie:{maxAge:60*60*1000},
+    cookie:{
+        httpOnly: true,
+        secure: false,
+    },
+    //같은 세션 정보 다시 저장할 건지 여부
     resave:true,
+    //초기화되지 않은 세션정보 저장
     saveUninitialized:false 
 }))
 app.use(passport.initialize());
@@ -39,7 +45,7 @@ app.use(passport.session());
 
 
 //cors설정
-var allowList = ['http://localhost:8080','http://pwa-tour-41b4e.firebaseapp.com']
+var allowList = ['http://localhost:8080','https://pwa-tour-41b4e.firebaseapp.com']
 var corsOptionsDelegate = (req,callback)=>{
     var corsOptions;
     if(allowList.indexOf(req.header('Origin')) !==-1){
