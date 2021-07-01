@@ -7,8 +7,8 @@ const sequelize = require('./models').sequelize
 const session = require('express-session')
 const passport = require('passport')
 const redis = require('redis')
-const RedisStore = require('connect-redis')(session)
-const redisClient =redis.createClient()
+// const RedisStore = require('connect-redis')(session)
+// const redisClient =redis.createClient()
 
 //post요청 설정
 app.use(express.json())
@@ -45,12 +45,12 @@ app.use(session({
 }))
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(session({
-    store: new RedisStore({client:redisClient}),
-    saveUninitialized:false,
-    secret:'keyboard cat',
-    resave:false,
-}))
+// app.use(session({
+//     store: new RedisStore({client:redisClient}),
+//     saveUninitialized:false,
+//     secret:'keyboard cat',
+//     resave:false,
+// }))
 
 
 //cors설정
