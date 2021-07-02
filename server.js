@@ -53,18 +53,18 @@ app.use(passport.session());
 // }))
 
 
-//cors설정
-var allowList = ['http://localhost:8080/']
-var corsOptionsDelegate = (req,callback)=>{
+//cors
+var allowlist = ['http://localhost:8080'];
+var corsOptionsDelegate = function (req, callback) {
     var corsOptions;
-    if(allowList.indexOf(req.header('Origin')) !==-1){
-        corsOptions={origin:true}
-    }else{
-        corsOptions={origin:false}
+    if (allowlist.indexOf(req.header('Origin')) !== -1) {
+        corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
+    } else {
+        corsOptions = { origin: false } // disable CORS for this request
     }
-    callback(null,corsOptions)
+    callback(null, corsOptions) // callback expects two parameters: error and options
 }
-app.use(cors(corsOptionsDelegate))
+app.use(cors(corsOptionsDelegate));
 
 //.env설정
 dotenv.config();
