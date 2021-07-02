@@ -54,7 +54,7 @@ app.use(passport.session());
 
 
 //cors설정
-var allowList = ['http://localhost:8080','https://pwa-tour-41b4e.firebaseapp.com']
+var allowList = ['http://localhost:8080/']
 var corsOptionsDelegate = (req,callback)=>{
     var corsOptions;
     if(allowList.indexOf(req.header('Origin')) !==-1){
