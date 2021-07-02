@@ -189,8 +189,6 @@ exports.read = async (req, res) => {
   try {
     var contentId = req.body.contentId;
     var contentTypeId = req.body.contentTypeId;
-    var mapx = req.body.mapx;
-    var mapy = req.body.mapy;
     var image = await axios.get(
       "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailImage",
       {
@@ -199,7 +197,6 @@ exports.read = async (req, res) => {
           MobileApp,
           MobileOS,
           contentId,
-          contentTypeId,
         },
       }
     );
@@ -209,8 +206,8 @@ exports.read = async (req, res) => {
       path = image[i].originimgurl;
       image[i] = path;
     }
-    var intro = await axios.get(
-      "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailIntro",
+    var info = await axios.get(
+      "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailInfo",
       {
         params: {
           ServiceKey,
@@ -221,9 +218,9 @@ exports.read = async (req, res) => {
         },
       }
     );
-    intro = intro.data.response.body;
+    info = info.data.response.body;
     console.log("지역기반 상세 보기 성공");
-    res.status(200).json({ resultCode: 1, data: { image, intro, mapx, mapy } });
+    res.status(200).json({ resultCode: 1, data: { image, info} });
   } catch (error) {
     console.log("지역기반 상세 보기 실패" + error);
     res.status(400).json({ resultCode: -1, data: null });
