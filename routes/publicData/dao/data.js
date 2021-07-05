@@ -207,18 +207,18 @@ exports.read = async (req, res) => {
       image[i] = path;
     }
     var info = await axios.get(
-      "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailInfo",
+      "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon",
       {
         params: {
           ServiceKey,
           MobileApp,
           MobileOS,
           contentId,
-          contentTypeId,
         },
       }
     );
-    info = info.data.response.body;
+    // info = info.data.response.body.items;
+    console.log(info.data.response.body.items.item)
     console.log("지역기반 상세 보기 성공");
     res.status(200).json({ resultCode: 1, data: { image, info} });
   } catch (error) {
