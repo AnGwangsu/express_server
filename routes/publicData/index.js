@@ -23,5 +23,10 @@ router.post('/stayList',data.stayList)
 //지역기반 상세보기
 router.post('/read',data.read)
 
+//위치기반 관광정보조회(음식점)
+router.post('/mapFood',data.mapFood)
+//위치기반 관광정보조회(숙소)
+router.post('/mapRoom',data.mapFood)
+
 
 module.exports = router

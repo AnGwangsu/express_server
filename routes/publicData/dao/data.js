@@ -17,7 +17,7 @@ exports.locationList = async (req, res) => {
     var arrange = req.body.arrange;
     var items = [];
 
-    if(cat3==null){
+    if (cat3 == null) {
       var response1 = await axios.get(
         "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList",
         {
@@ -36,7 +36,7 @@ exports.locationList = async (req, res) => {
         }
       );
       items = response1.data.response.body.items.item;
-    }else{
+    } else {
       var response2 = await axios.get(
         "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList",
         {
@@ -51,7 +51,7 @@ exports.locationList = async (req, res) => {
             contentTypeId,
             cat1,
             cat2,
-            cat3
+            cat3,
           },
         }
       );
@@ -156,39 +156,44 @@ exports.locationCode = async (req, res) => {
 };
 exports.categoryList = async (req, res) => {
   try {
-    var areaCode = req.body.areaCode
+    var areaCode = req.body.areaCode;
     var numOfRows = req.body.limit;
-    var contentTypeId = req.body.contentTypeId
+    var contentTypeId = req.body.contentTypeId;
     var arrange = "P";
-    var cat1 = req.body.cat1
-    var cat2 = req.body.cat2
-    var items = []
-    var category = await axios.get('http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList',{
-      params:{
-        ServiceKey,
-        MobileApp,
-        MobileOS,
-        arrange,
-        areaCode,
-        contentTypeId,
-        cat1,
-        cat2,
-        numOfRows
+    var cat1 = req.body.cat1;
+    var cat2 = req.body.cat2;
+    var items = [];
+    var category = await axios.get(
+      "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList",
+      {
+        params: {
+          ServiceKey,
+          MobileApp,
+          MobileOS,
+          arrange,
+          areaCode,
+          contentTypeId,
+          cat1,
+          cat2,
+          numOfRows,
+        },
       }
-    })
-    items = category.data.response.body.items.item
-    console.log('카테고리별 리스트 성공')
-    res.status(200).json({"resultCode":1, "data":{"items":items}})
+    );
+    items = category.data.response.body.items.item;
+    console.log("카테고리별 리스트 성공");
+    res.status(200).json({ resultCode: 1, data: { items: items } });
   } catch (error) {
-    console.log('카테고리별 리스트 실패'+error)
-    res.status(400).json({"resultCode":-1, "data":null})
+    console.log("카테고리별 리스트 실패" + error);
+    res.status(400).json({ resultCode: -1, data: null });
   }
 };
 
 exports.read = async (req, res) => {
   try {
     var contentId = req.body.contentId;
-    var contentTypeId = req.body.contentTypeId;
+    var defaultYN = "Y";
+    var mapinfoYN = "Y";
+    var catcodeYN = "Y";
     var image = await axios.get(
       "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailImage",
       {
@@ -214,15 +219,77 @@ exports.read = async (req, res) => {
           MobileApp,
           MobileOS,
           contentId,
+          defaultYN,
+          mapinfoYN,
+          catcodeYN,
         },
       }
     );
-    // info = info.data.response.body.items;
-    console.log(info.data.response.body.items.item)
+    info = info.data.response.body.items.item;
     console.log("지역기반 상세 보기 성공");
-    res.status(200).json({ resultCode: 1, data: { image, info} });
+    res.status(200).json({ resultCode: 1, data: { image, info } });
   } catch (error) {
     console.log("지역기반 상세 보기 실패" + error);
     res.status(400).json({ resultCode: -1, data: null });
+  }
+};
+
+exports.mapFood = async (req, res) => {
+  try {
+    var mapx = req.body.mapx
+    var mapy = req.body.mapy
+    var contentTypeId = 39
+    var radius = 1000
+    var arrange = 'P'
+    var items = await axios.get(
+      "http://api.visitkorea.or.kr/openapi/service/rest/KorService/locationBasedList",
+      {
+        params: {
+          ServiceKey,
+          MobileApp,
+          MobileOS,
+          mapx,
+          mapy,
+          contentTypeId,
+          radius,
+          arrange
+        },
+      }
+    );
+    console.log('위치기반 리스트 성공')
+    res.status(200).json({"resultCode":1, "data":{"items":items}})
+  } catch (error) {
+    console.log('위치기반 리스트 실패')
+    res.status(400).json({"resultCode":-1, "data":null})
+  }
+};
+
+exports.mapRoom = async (req, res) => {
+  try {
+    var mapx = req.body.mapx
+    var mapy = req.body.mapy
+    var contentTypeId = 32
+    var radius = 1000
+    var arrange = 'P'
+    var items = await axios.get(
+      "http://api.visitkorea.or.kr/openapi/service/rest/KorService/locationBasedList",
+      {
+        params: {
+          ServiceKey,
+          MobileApp,
+          MobileOS,
+          mapx,
+          mapy,
+          contentTypeId,
+          radius,
+          arrange
+        },
+      }
+    );
+    console.log('위치기반 리스트 성공')
+    res.status(200).json({"resultCode":1, "data":{"items":items}})
+  } catch (error) {
+    console.log('위치기반 리스트 실패')
+    res.status(400).json({"resultCode":-1, "data":null})
   }
 };
