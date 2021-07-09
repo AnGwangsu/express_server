@@ -240,7 +240,8 @@ exports.mapFood = async (req, res) => {
     var mapy = req.body.mapy
     var contentTypeId = 39
     var radius = 1000
-    var arrange = 'P'
+    var arrange = 'B'
+    var listYN = 'Y'
     var items = await axios.get(
       "http://api.visitkorea.or.kr/openapi/service/rest/KorService/locationBasedList",
       {
@@ -252,14 +253,17 @@ exports.mapFood = async (req, res) => {
           mapy,
           contentTypeId,
           radius,
-          arrange
+          arrange,
+          listYN
         },
       }
     );
-    console.log('위치기반 리스트 성공')
+    console.log(items.data.response.body.items)
+    items = items.data.response.body.items;
+    console.log('위치기반 식당리스트 성공')
     res.status(200).json({"resultCode":1, "data":{"items":items}})
   } catch (error) {
-    console.log('위치기반 리스트 실패')
+    console.log('위치기반 리스트 실패'+error)
     res.status(400).json({"resultCode":-1, "data":null})
   }
 };
@@ -270,7 +274,7 @@ exports.mapRoom = async (req, res) => {
     var mapy = req.body.mapy
     var contentTypeId = 32
     var radius = 1000
-    var arrange = 'P'
+    var arrange = 'B'
     var items = await axios.get(
       "http://api.visitkorea.or.kr/openapi/service/rest/KorService/locationBasedList",
       {
@@ -286,10 +290,12 @@ exports.mapRoom = async (req, res) => {
         },
       }
     );
-    console.log('위치기반 리스트 성공')
+    console.log(items)
+    items = items.data.response.body.items;
+    console.log('위치기반 숙소리스트 성공')
     res.status(200).json({"resultCode":1, "data":{"items":items}})
   } catch (error) {
-    console.log('위치기반 리스트 실패')
+    console.log('위치기반 리스트 실패'+error)
     res.status(400).json({"resultCode":-1, "data":null})
   }
 };
